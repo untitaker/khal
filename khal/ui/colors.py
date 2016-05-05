@@ -40,6 +40,8 @@ dark = [
     ('edit', 'white', 'dark blue'),
     ('alert', 'white', 'dark red'),
     ('mark', 'white', 'dark green'),
+    ('frame', 'light gray', ''),
+    ('frame focus', 'light blue', ''),
 
     ('editfc', 'white', 'dark blue', 'bold'),
     ('editbx', 'light gray', 'dark blue'),
