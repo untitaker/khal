@@ -552,29 +552,9 @@ class AlarmsEditor(urwid.WidgetWrap):
 
 class FocusLineBox(urwid.WidgetDecoration, urwid.WidgetWrap):
     def __init__(self, widget):
-        hline = urwid.Divider('━')
-        self._vline = urwid.AttrMap(urwid.SolidFill('┃'), 'frame')
-        self._topline = urwid.AttrMap(
-            urwid.Columns([
-                ('fixed', 1, urwid.Text('┏')),
-                hline,
-                ('fixed', 1, urwid.Text('┓')),
-            ]),
-            'frame')
-        self._bottomline = urwid.AttrMap(
-            urwid.Columns([
-                ('fixed', 1, urwid.Text('┗')),
-                hline,
-                ('fixed', 1, urwid.Text('┛')),
-            ]),
-            'frame')
-
-        self._middle = urwid.Columns(
-            [('fixed', 1, self._vline), widget, ('fixed', 1, self._vline)],
-            focus_column=1,
-        )
+        self._border = urwid.AttrMap(urwid.Divider('─'), 'frame')
         self._all = urwid.Pile(
-            [('flow', self._topline), self._middle, ('flow', self._bottomline)],
+             [('flow', self._border), widget],
             focus_item=1,
         )
 
@@ -583,11 +563,7 @@ class FocusLineBox(urwid.WidgetDecoration, urwid.WidgetWrap):
 
     def render(self, size, focus):
         if focus:
-            self._middle.contents[0][0].set_attr_map({None: 'frame focus'})
-            self._all.contents[0][0].set_attr_map({None: 'frame focus'})
-            self._all.contents[2][0].set_attr_map({None: 'frame focus'})
+            self._border.set_attr_map({None: 'frame focus'})
         else:
-            self._middle.contents[0][0].set_attr_map({None: 'frame'})
-            self._all.contents[0][0].set_attr_map({None: 'frame'})
-            self._all.contents[2][0].set_attr_map({None: 'frame'})
+            self._border.set_attr_map({None: 'frame'})
         return super().render(size, focus)
